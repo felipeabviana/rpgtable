@@ -1,7 +1,37 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * This class is responsible for handling the project file in XML format.
+ * The project file contains all the information the SW needs to play a
+ * functional rpg campain. The XML of a project with data is show above:
+ * <project>
+	<projectname>projeto</projectname>
+	<narration>
+		<texts>
+			<textfile id = "1">caminho_do_arquivo_texto_1</textfile>
+			<textfile id = "2">caminho_do_arquivo_texto_2</textfile>
+		<texts>
+		<musics>
+			<musicfile id = "1">caminho_do_arquivo_musica_1</musicfile>
+			<musicfile id = "2">caminho_do_arquivo_musica_2</musicfile>
+		</musics>
+		<images>
+			<imagefile id = "1">caminho_do_arquivo_imagem_1</imagefile>
+			<imagefile id = "2">caminho_do_arquivo_imagem_2</imagefile>
+		</images>
+		<characters>
+			<characterdata id = "1">
+				<name>nome_1</name>
+				<photo>caminho_da_imagem_1</photo>
+			</characterdata>
+			<characterdata id = "2">
+				<name>nome_2</name>
+				<photo>caminho_da_imagem_2</photo>
+			</characterdata>
+		</characters>
+	</narration>
+	<battle>
+	</battle>
  */
+
 package rpg_table_projecthandle;
  
 import java.io.File;
@@ -19,33 +49,67 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
- *
+ *  This class provides the following function to handle project files
+ * 
+ * main (test purposes)
+ * create_new_project_file
+ * load_project_file
+ * save_project_file
+ * insert_character
+ * remove_character
+ * insert_music
+ * remove_music
+ * insert_text
+ * remove_text
+ * insert_map
+ * remove_map
+ * rename_project
+ * 
  * @author ninjamanco
  */
+
 public class Rpg_table_projecthandle {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
+    // ======== Atributes ==========
+    DocumentBuilderFactory docFactory;
+    DocumentBuilder docBuilder;
+    Document doc;
+    
+    // ============== Class constructor ==============
+    public void Rpg_table_projecthandle() {
+            
+        //try to avoid errors
+        try{
+            // Creation of objects that will build the xml 
+            docFactory = DocumentBuilderFactory.newInstance();
+            docBuilder = docFactory.newDocumentBuilder();
+            doc = docBuilder.newDocument();
+        }catch (ParserConfigurationException pce) {
+            pce.printStackTrace();
+        }
+      }
+    
+    // ============== MAIN ==============
+    //Main function to test the class - in real Sw the function will be called
+    //from the GUI or other real main function.
+    public void main(String[] args) {
         
-        create_new_project_file("teste1");
+        create_new_project_file("newName");
+        save_project_file("C:\\Users\\Public\\Documents\\file.xml");
         
     }
     
-    
-    public static void create_new_project_file(String newName) {
-        try {
-            // ==== Creation of objects that will build the xml ====
-            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-            Document doc = docBuilder.newDocument();
-            
-            // ==== Root elements ====
+    // ============== NEW PROJECT ==============
+    //Function called when a new project must be created
+    //It creates the data structure empty
+    //Inputs:
+    //newName - project name
+    public void create_new_project_file(String newName) {
+            // Root elements
             Element rootElement = doc.createElement("project");
             doc.appendChild(rootElement);
             
-            // ==== First Level Elements ====
+            // First Level Elements
             //Project name data
             Element projectname = doc.createElement("projectname");
             rootElement.appendChild(projectname);
@@ -58,7 +122,7 @@ public class Rpg_table_projecthandle {
             Element battle = doc.createElement("battle");
             rootElement.appendChild(battle);
             
-            // ==== Narration section - creation of other elements ====
+            // Narration section - creation of other elements
             
             //Texts section
             Element texts = doc.createElement("texts");
@@ -75,35 +139,30 @@ public class Rpg_table_projecthandle {
             //Characters section
             Element characters = doc.createElement("characters");
             narration.appendChild(characters);
-            
-            // ==== Populate texts section with data ====
-            
+    }
+    
+    
+    // ============== SAVE ==============
+    //newDir - project save directory
+    public void save_project_file(String newDir) {
+        try {
+        // write the content into xml file
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = transformerFactory.newTransformer();
+        DOMSource source = new DOMSource(doc);
+        StreamResult result = new StreamResult(new File(newDir));
 
-            // ==== write the content into xml file ====
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new File("C:\\Users\\Public\\Documents\\file.xml"));
+        // Output to console for testing
+        // StreamResult result = new StreamResult(System.out);
 
-            // Output to console for testing
-            // StreamResult result = new StreamResult(System.out);
+        transformer.transform(source, result);
 
-            transformer.transform(source, result);
-
-            System.out.println("File saved!");
-
-      } catch (ParserConfigurationException pce) {
-            pce.printStackTrace();
-      } catch (TransformerException tfe) {
+        System.out.println("File saved!");
+        } catch (TransformerException tfe) {
             tfe.printStackTrace();
       }
     }
+    
+    
 }
 
-
-
-
-
- 
- 
-	
