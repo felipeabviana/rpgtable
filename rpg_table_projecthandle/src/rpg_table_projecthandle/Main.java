@@ -14,8 +14,13 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        create_new_project_file("newName");
-        save_project_file("C:\\Users\\Public\\Documents\\file.xml");
+        
+        // ============== MAIN ==============
+        //Main function to test the class - in real Sw the function will be called
+        //from the GUI or other real main function.
+        
+        Rpg_table_projecthandle ProjectTest = new Rpg_table_projecthandle();
+        ProjectTest.create_new_project_file("newName");
+        ProjectTest.save_project_file("C:\\Users\\Public\\Documents\\file.xml");
     }
 }

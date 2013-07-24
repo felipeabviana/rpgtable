@@ -52,9 +52,9 @@ import org.w3c.dom.Element;
  *  This class provides the following function to handle project files
  * 
  * main (test purposes)
- * create_new_project_file
+ * OK create_new_project_file
  * load_project_file
- * save_project_file
+ * OK save_project_file
  * insert_character
  * remove_character
  * insert_music
@@ -71,12 +71,12 @@ import org.w3c.dom.Element;
 public class Rpg_table_projecthandle {
 
     // ======== Atributes ==========
-    DocumentBuilderFactory docFactory;
-    DocumentBuilder docBuilder;
-    Document doc;
+    private DocumentBuilderFactory docFactory;
+    private DocumentBuilder docBuilder;
+    private Document doc;
     
     // ============== Class constructor ==============
-    public void Rpg_table_projecthandle() {
+    Rpg_table_projecthandle() {
             
         //try to avoid errors
         try{
@@ -89,55 +89,46 @@ public class Rpg_table_projecthandle {
         }
       }
     
-    // ============== MAIN ==============
-    //Main function to test the class - in real Sw the function will be called
-    //from the GUI or other real main function.
-    public void main(String[] args) {
-        
-        create_new_project_file("newName");
-        save_project_file("C:\\Users\\Public\\Documents\\file.xml");
-        
-    }
-    
     // ============== NEW PROJECT ==============
     //Function called when a new project must be created
     //It creates the data structure empty
     //Inputs:
     //newName - project name
-    public void create_new_project_file(String newName) {
+    public void create_new_project_file(String newName) { 
+        
             // Root elements
             Element rootElement = doc.createElement("project");
             doc.appendChild(rootElement);
             
             // First Level Elements
             //Project name data
-            Element projectname = doc.createElement("projectname");
+            Element projectname = this.doc.createElement("projectname");
             rootElement.appendChild(projectname);
             
             //Narration section
-            Element narration = doc.createElement("narration");
+            Element narration = this.doc.createElement("narration");
             rootElement.appendChild(narration);
             
             //Batle section
-            Element battle = doc.createElement("battle");
+            Element battle = this.doc.createElement("battle");
             rootElement.appendChild(battle);
             
             // Narration section - creation of other elements
             
             //Texts section
-            Element texts = doc.createElement("texts");
+            Element texts = this.doc.createElement("texts");
             narration.appendChild(texts);
             
             //Musics section
-            Element musics = doc.createElement("musics");
+            Element musics = this.doc.createElement("musics");
             narration.appendChild(musics);
             
             //Images section
-            Element images = doc.createElement("images");
+            Element images = this.doc.createElement("images");
             narration.appendChild(images);
             
             //Characters section
-            Element characters = doc.createElement("characters");
+            Element characters = this.doc.createElement("characters");
             narration.appendChild(characters);
     }
     
@@ -149,7 +140,7 @@ public class Rpg_table_projecthandle {
         // write the content into xml file
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();
-        DOMSource source = new DOMSource(doc);
+        DOMSource source = new DOMSource(this.doc);
         StreamResult result = new StreamResult(new File(newDir));
 
         // Output to console for testing
@@ -163,6 +154,46 @@ public class Rpg_table_projecthandle {
       }
     }
     
+    // ============== insert_character ==============
+    public void insert_character(String newName)
+    {
+        
+    }
+    
+    // ============== remove_character ==============
+    
+    
+    // ============== SAVE ==============
+    
+    
+    // ============== SAVE ==============
+    
+    
+    // ============== SAVE ==============
+    
+    
+    // ============== SAVE ==============
+    
+    
+    // ============== SAVE ==============
+    
+    
+    // ============== SAVE ==============
+    
+    
+    // ============== SAVE ==============
+    
+    
+    // ============== SAVE ==============
+    
+    
+    // ============== SAVE ==============
+    
+    
+    // ============== SAVE ==============
+    
+    
+    // ============== SAVE ==============
     
 }
 
