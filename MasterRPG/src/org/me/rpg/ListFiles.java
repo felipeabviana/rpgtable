@@ -11,7 +11,13 @@ package org.me.rpg;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
- 
+
+/*
+ * This class can list the following extensions for this types of file:
+ * -Image: .jpg(.jpeg), .png
+ * -Music: .mp3, .wmv
+ * -Text: .txt
+ */
 public class ListFiles{
     
     //Lists by type
@@ -134,31 +140,5 @@ public class ListFiles{
     
     public List getListFilesText(){
         return textList;
-    }
-
-    public static void main(String[] args){
-        
-        List lista = new ArrayList();
-
-//        setListFilesMusic("D:\\Músicas");
-//        setListFilesMusic();
-//        lista = musicList;
-
-//        setListFilesImg("D:\\TCC\\Concept Art");
-        setListFilesImg();
-        lista = imageList;
-
-//        setListFilesText("D:\\TCC\\Concept Art");
-//        setListFilesText();
-//        lista = textList;
-        
-        
-        
-        System.out.println(lista.size());
-        
-        for (int i = 0; i < lista.size(); i++){
-            System.out.println("" + i + "-" + lista.get(i));
-        }
-        
     }
 }
